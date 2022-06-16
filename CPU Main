@@ -1,6 +1,7 @@
 from random import random
 from math import ceil
 from time import sleep
+import os
 Reg1 = Reg2 = Reg3 = Reg4 = Reg5 = Reg6 = Reg7 = Reg8 = 0
 RAM = []
 
@@ -168,5 +169,41 @@ def SubMEM(Target, Value):
         SubMEM('Reg6', Value)
         SubMEM('Reg7', Value)
         SubMEM('Reg8', Value)
+        
+def MultiplyMEM(Target, Value):
+    global Reg1,Reg2,Reg3,Reg4,Reg5,Reg6,Reg7,Reg8,RAM
+    if Target == 'Reg1':
+        Reg1 = Value * Reg1
+    if Target == 'Reg2':
+        Reg2 = Value * Reg2
+    if Target == 'Reg3':
+        Reg3 = Value * Reg3
+    if Target == 'Reg4':
+        Reg4 = Value * Reg4
+    if Target == 'Reg5':
+        Reg5 = Value * Reg5
+    if Target == 'Reg6':
+        Reg6 = Value * Reg6
+    if Target == 'Reg7':
+        Reg7 = Value * Reg7
+    if Target == 'Reg8':
+        Reg8 = Value * Reg8
+    if Target == 'ALL':
+        MultiplyMEM('Reg1', Value)
+        MultiplyMEM('Reg2', Value)
+        MultiplyMEM('Reg3', Value)
+        MultiplyMEM('Reg4', Value)
+        MultiplyMEM('Reg5', Value)
+        MultiplyMEM('Reg6', Value)
+        MultiplyMEM('Reg7', Value)
+        MultiplyMEM('Reg8', Value)
 
 MEMtest()
+if os.path.exists('Assembler.txt') == False:
+    Assembler = open('Assembler.txt', 'x')
+    Assembler.close
+Assembler = open('Assembler.txt', 'r')
+lines = Assembler.readline()
+for lines in Assembler:
+    '''TODO: Make Reader'''
+    print(lines)
