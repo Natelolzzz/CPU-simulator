@@ -199,11 +199,7 @@ def MultiplyMEM(Target, Value):
         MultiplyMEM('Reg8', Value)
 
 MEMtest()
-if os.path.exists('Assembler.txt') == False:
-    Assembler = open('Assembler.txt', 'x')
-    Assembler.close
-Assembler = open('Assembler.txt', 'r')
-lines = Assembler.readline()
-for lines in Assembler:
-    '''TODO: Make Reader'''
-    print(lines)
+
+while True:
+    Instruction = input('>')
+    print(Instruction.split(' '))
