@@ -2,7 +2,7 @@ from random import random
 from math import ceil
 from time import sleep
 import os
-Reg1 = Reg2 = Reg3 = Reg4 = Reg5 = Reg6 = Reg7 = Reg8 = 0
+Reg1 = Reg2 = Reg3 = Reg4 = Reg5 = Reg6 = Reg7 = Reg8 = Accumulator = 0
 RAM = []
 
 def PrintMEM(Target):
@@ -111,9 +111,6 @@ def MEMtest():
     ResetRAM()
     print('MEMtest Complete')
 
-def ResetRAM():
-    RAM.clear()
-
 def AddMEM(Target, Value):
     global Reg1,Reg2,Reg3,Reg4,Reg5,Reg6,Reg7,Reg8,RAM
     if Target == 'Reg1':
@@ -198,8 +195,22 @@ def MultiplyMEM(Target, Value):
         MultiplyMEM('Reg7', Value)
         MultiplyMEM('Reg8', Value)
 
-MEMtest()
 
 while True:
-    Instruction = input('>')
-    print(Instruction.split(' '))
+    Instruction_RAW = input('>')
+    Instruction = Instruction_RAW.split(' ')
+    OPCode, Target, Value = Instruction
+    if OPCode == 'SaveMEM':
+        SaveMEM(Target,int(Value))
+        PrintMEM(Target)
+    if OPCode == 'AddMEM':
+        AddMEM(Target,int(Value))
+        PrintMEM(Target)
+    if OPCode == 'SubMEM':
+        SubMEM(Target,int(Value))
+        PrintMEM(Target)
+    if OPCode == 'MultiplyMEM':
+        MultiplyMEM(Target,int(Value))
+        PrintMEM(Target)
+    Accumulator = Accumulator + 1
+    print('Clock:', Accumulator)
