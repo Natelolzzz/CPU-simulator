@@ -195,22 +195,25 @@ def MultiplyMEM(Target, Value):
         MultiplyMEM('Reg7', Value)
         MultiplyMEM('Reg8', Value)
 
-
-while True:
-    Instruction_RAW = input('>')
+if os.path.isfile('Assembly.txt') == False:
+    fp = open('Assembly.txt', 'x')
+    fp.close()
+file =open('Assembly.txt', 'r')
+for item in file:
+    Instruction_RAW = item
     Instruction = Instruction_RAW.split(' ')
     OPCode, Target, Value = Instruction
     if OPCode == 'SaveMEM':
         SaveMEM(Target,int(Value))
-        PrintMEM(Target)
     if OPCode == 'AddMEM':
         AddMEM(Target,int(Value))
-        PrintMEM(Target)
     if OPCode == 'SubMEM':
         SubMEM(Target,int(Value))
-        PrintMEM(Target)
     if OPCode == 'MultiplyMEM':
         MultiplyMEM(Target,int(Value))
+    if OPCode == 'PrintMEM':
         PrintMEM(Target)
+    if OPCode == 'MEMtest':
+        MEMtest()
     Accumulator = Accumulator + 1
     print('Clock:', Accumulator)
