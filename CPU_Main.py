@@ -217,3 +217,4 @@ for item in file:
         MEMtest()
     Accumulator = Accumulator + 1
     print('Clock:', Accumulator)
+    sleep(2)
