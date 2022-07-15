@@ -213,7 +213,7 @@ while True:
     if OPCode == 'SubMEM':
         SubMEM(Target,int(Value))
         PrintMEM(Target)
-    if OPCode == 'MultiplyMEM':
+    if OPCode == 'MultMEM':
         MultiplyMEM(Target,int(Value))
         PrintMEM(Target)
     if OPCode == 'PrintMEM':
@@ -227,5 +227,5 @@ while True:
     if OPCode != 'GoTo':
         LineNo += 1
         Clock = Clock + 1
-    print('Clock:', Clock)
+        print('Clock:', Clock)
     sleep(1)
