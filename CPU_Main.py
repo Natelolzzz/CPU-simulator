@@ -2,26 +2,28 @@ from random import random
 from math import ceil
 from time import sleep
 import os
-Reg1 = Reg2 = Reg3 = Reg4 = Reg5 = Reg6 = Reg7 = Reg8 = Accumulator = 0
+import linecache
+Reg1 = Reg2 = Reg3 = Reg4 = Reg5 = Reg6 = Reg7 = Reg8 = Clock = 0
+LineNo = 1
 RAM = []
 
 def PrintMEM(Target):
     global Reg1,Reg2,Reg3,Reg4,Reg5,Reg6,Reg7,Reg8,RAM
-    if Target == '1':
+    if Target == 'Reg1':
         print(Reg1)
-    if Target == '2':
+    if Target == 'Reg2':
         print(Reg2)
-    if Target == '3':
+    if Target == 'Reg3':
         print(Reg3)
-    if Target == '4':
+    if Target == 'Reg4':
         print(Reg4)
-    if Target == '5':
+    if Target == 'Reg5':
         print(Reg5)
-    if Target == '6':
+    if Target == 'Reg6':
         print(Reg6)
-    if Target == '7':
+    if Target == 'Reg7':
         print(Reg7)
-    if Target == '8':
+    if Target == 'Reg8':
         print(Reg8)
     if Target == 'RAM':
         print(RAM)
@@ -198,23 +200,32 @@ def MultiplyMEM(Target, Value):
 if os.path.isfile('Assembly.txt') == False:
     fp = open('Assembly.txt', 'x')
     fp.close()
-file =open('Assembly.txt', 'r')
-for item in file:
-    Instruction_RAW = item
+file = open('Assembly.txt', 'r')
+while True:
+    Instruction_RAW =  linecache.getline('Assembly.txt', LineNo)
     Instruction = Instruction_RAW.split(' ')
     OPCode, Target, Value = Instruction
     if OPCode == 'SaveMEM':
         SaveMEM(Target,int(Value))
     if OPCode == 'AddMEM':
         AddMEM(Target,int(Value))
+        PrintMEM(Target)
     if OPCode == 'SubMEM':
         SubMEM(Target,int(Value))
+        PrintMEM(Target)
     if OPCode == 'MultiplyMEM':
         MultiplyMEM(Target,int(Value))
-    if OPCode == 'PrintMEM':
         PrintMEM(Target)
+    if OPCode == 'PrintMEM':
+        PrintMEM(Target)    
     if OPCode == 'MEMtest':
         MEMtest()
-    Accumulator = Accumulator + 1
-    print('Clock:', Accumulator)
-    sleep(2)
+    if OPCode == 'GoTo':
+        LineNo = int(Target)
+    if OPCode == 'Halt':
+        break
+    if OPCode != 'GoTo':
+        LineNo += 1
+        Clock = Clock + 1
+    print('Clock:', Clock)
+    sleep(1)
